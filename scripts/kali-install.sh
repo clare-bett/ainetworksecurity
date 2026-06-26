@@ -13,6 +13,7 @@ ENV_DIR="/etc/aegisnet"
 ENV_FILE="${ENV_DIR}/aegisnet.env"
 RUN_SCRIPT="/opt/aegisnet/aegisnet-run"
 SERVICE_FILE="/etc/systemd/system/aegisnet.service"
+LOCAL_SBIN="/usr/local/sbin"
 
 if [ ! -d "${APP_SRC}" ]; then
   echo "Missing app source directory: ${APP_SRC}" >&2
@@ -66,6 +67,11 @@ EOF
 chown root:aegisnet "${RUN_SCRIPT}"
 chmod 0750 "${RUN_SCRIPT}"
 
+install -d -o root -g root -m 0755 "${LOCAL_SBIN}"
+install -o root -g root -m 0750 "${ROOT_DIR}/scripts/kali-start.sh" "${LOCAL_SBIN}/aegisnet-start"
+install -o root -g root -m 0750 "${ROOT_DIR}/scripts/kali-stop.sh" "${LOCAL_SBIN}/aegisnet-stop"
+install -o root -g root -m 0750 "${ROOT_DIR}/scripts/kali-reset-flags.sh" "${LOCAL_SBIN}/aegisnet-reset-flags"
+
 cat > "${SERVICE_FILE}" <<'EOF'
 [Unit]
 Description=AegisNet Kali CTF target
@@ -98,7 +104,7 @@ Start with:
   systemctl start aegisnet
 
 If systemd is unavailable:
-  bash scripts/kali-start.sh
+  aegisnet-start
 
 Target URL from the existing Kali/MCP environment:
   http://127.0.0.1:8080

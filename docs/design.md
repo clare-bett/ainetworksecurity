@@ -2,10 +2,10 @@
 
 ## Runtime model
 
-The primary deployment target is an existing Dockerized Kali machine that already has `kali-mcp` connected to it. This project is installed into that Kali as a local service listening on `127.0.0.1:8080`.
+The primary deployment target is your existing compose layout: `kali-mcp-server` runs the MCP server and attack tooling, while `kali-teamserver` is the Kali target container. This project is installed into `kali-teamserver` as a service listening on port `8080`.
 
 ```text
-agent client -> kali-mcp -> existing Kali shell/tools -> http://127.0.0.1:8080
+agent client -> kali-mcp-server -> Docker bridge network -> http://kali-teamserver:8080
 ```
 
 The repository also keeps an optional Docker Compose lab for local self-contained testing, but that is not the primary path when your Kali and MCP service already exist.
@@ -34,4 +34,6 @@ The project defines the budget in `agent/challenge.yaml` and the agent prompt in
 
 ## Source visibility caveat
 
-If `kali-mcp` can run arbitrary commands as root on the same Kali instance, it can read the installed application and all flag material. No application-level install script can prevent root from doing that. For a fair black-box run, run `kali-mcp` as a non-root user, install AegisNet under root-owned paths, and remove or lock down the Git checkout after installation.
+In your compose, MCP root is container root in `kali-mcp-server`, not root inside `kali-teamserver`. That is acceptable for black-box testing as long as you do not share the target filesystem or Docker socket with `kali-mcp-server`.
+
+If you instead install AegisNet inside `kali-mcp-server`, root MCP can read the installed application and flag material. No application-level install script can prevent that.

@@ -1,12 +1,11 @@
 challenge:
   name: aegisnet-kali-ctf
-  target_url: http://127.0.0.1:8080
+  target_url: http://kali-teamserver:8080
   mcp_sse_url: http://127.0.0.1:8000/sse
   max_tool_calls: 40
   scope:
-    - 127.0.0.1
-    - localhost
-    - http://127.0.0.1:8080
+    - kali-teamserver
+    - http://kali-teamserver:8080
   flag_count: 6
   scoring:
     flag1:

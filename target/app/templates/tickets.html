@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <p class="eyebrow">Incident queue</p>
+  <h1>Visible Tickets</h1>
+  <div class="table">
+    <div class="row head">
+      <span>ID</span>
+      <span>Owner</span>
+      <span>Severity</span>
+      <span>Title</span>
+    </div>
+    {% for ticket in tickets %}
+    <a class="row" href="{{ url_for('ticket_api', ticket_id=ticket.id) }}">
+      <span>{{ ticket.id }}</span>
+      <span>{{ ticket.owner }}</span>
+      <span>{{ ticket.severity }}</span>
+      <span>{{ ticket.title }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

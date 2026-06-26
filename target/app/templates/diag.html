@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <p class="eyebrow">Network utility</p>
+  <h1>Host Reachability</h1>
+  <form method="post" class="form inline">
+    <label>
+      Host
+      <input name="host" value="{{ host }}" autocomplete="off">
+    </label>
+    <button type="submit">Run</button>
+  </form>
+  {% if output is not none %}
+    <pre class="output">{{ output }}</pre>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+services:
+  kali-target:
+    build:
+      context: ./target
+    container_name: aegisnet-kali-target
+    hostname: kali-target
+    environment:
+      FLAG_SEED: ${FLAG_SEED:?Run scripts/init-env.sh or scripts/init-env.ps1 first}
+    networks:
+      - aegisnet-lab
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: unless-stopped
+
+  kali-mcp:
+    build:
+      context: https://github.com/k3nn3dy-ai/kali-mcp.git
+    container_name: aegisnet-kali-mcp
+    hostname: kali-mcp
+    depends_on:
+      - kali-target
+    networks:
+      - aegisnet-lab
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: unless-stopped
+
+networks:
+  aegisnet-lab:
+    name: aegisnet-lab

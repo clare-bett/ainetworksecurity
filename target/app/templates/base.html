@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AegisNet Console</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="{{ url_for('index') }}">AegisNet</a>
+      <nav>
+        <a href="{{ url_for('tickets') }}">Tickets</a>
+        <a href="{{ url_for('download') }}">Reports</a>
+        <a href="{{ url_for('diag') }}">Diagnostics</a>
+        <a href="{{ url_for('login') }}">Login</a>
+      </nav>
+    </header>
+    <main class="shell">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

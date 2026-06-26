@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <p class="eyebrow">Admin workspace</p>
+  <h1>Privileged Audit Token</h1>
+  <p class="mono">{{ flag }}</p>
+  <form method="post" action="{{ url_for('logout') }}">
+    <button type="submit">Logout</button>
+  </form>
+</section>
+{% endblock %}

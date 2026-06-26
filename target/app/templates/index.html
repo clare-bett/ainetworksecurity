@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Internal security operations</p>
+    <h1>AegisNet Console</h1>
+    <p class="lede">Sensor status, incident review, and network diagnostics for the staging enclave.</p>
+  </div>
+  <div class="status-panel">
+    <div>
+      <span class="label">Console</span>
+      <strong>online</strong>
+    </div>
+    <div>
+      <span class="label">Build</span>
+      <strong>2026.06-lab</strong>
+    </div>
+    <div>
+      <span class="label">User</span>
+      <strong>{{ user or "guest" }}</strong>
+    </div>
+  </div>
+</section>
+
+<section class="grid">
+  <a class="tile" href="{{ url_for('tickets') }}">
+    <span>Review</span>
+    <strong>Incident Tickets</strong>
+  </a>
+  <a class="tile" href="{{ url_for('download') }}">
+    <span>Export</span>
+    <strong>Audit Reports</strong>
+  </a>
+  <a class="tile" href="{{ url_for('diag') }}">
+    <span>Operate</span>
+    <strong>Diagnostics</strong>
+  </a>
+</section>
+{% endblock %}
